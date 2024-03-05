@@ -1,11 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on 20 Sep, 2020
-
-@author: Xiaokun Zhang
-
-Reference: https://github.com/lijingsdu/sessionRec_NARM/blob/master/data_process.py
-"""
 
 import pickle
 import torch
