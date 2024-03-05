@@ -24,7 +24,7 @@ from dataset import load_data, RecSysDataset
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset_path', default='./datasets/yoochoose1_64/', help='dataset directory path: datasets/diginetica/yoochoose1_4/yoochoose1_64')
 # parser.add_argument('--dataset_path', default='./DIDN/datasets/diginetica/', help='dataset directory path: datasets/diginetica/yoochoose1_4/yoochoose1_64')
-parser.add_argument('--batch_size', type=int, default=64, help='input batch size 512')
+parser.add_argument('--batch_size', type=int, default=64, help='input batch size')
 parser.add_argument('--hidden_size', type=int, default=64, help='hidden state size of gru module')
 parser.add_argument('--embed_dim', type=int, default=64, help='the dimension of item embedding')
 parser.add_argument('--epoch', type=int, default=100, help='the number of epochs to train for 100')
