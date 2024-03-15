@@ -17,7 +17,6 @@ class TICED(nn.Module):
         n_items(int): the number of items
         hidden_size(int): the hidden size of gru
         position_embed_dim/embedding_dim(int): the dimension of item embedding
-        batch_size(int):
         n_layers(int): the number of gru layers
 
     """
