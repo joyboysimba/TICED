@@ -23,10 +23,10 @@ from dataset import load_data, RecSysDataset
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset_path', default='./datasets/diginetica/', help='dataset directory path: datasets/diginetica/yoochoose1_4/yoochoose1_64')
-parser.add_argument('--batch_size', type=int, default=128, help='input batch size 512')
+parser.add_argument('--batch_size', type=int, default=128, help='batch size')
 parser.add_argument('--hidden_size', type=int, default=64, help='hidden state size of gru module')
 parser.add_argument('--embed_dim', type=int, default=64, help='the dimension of item embedding')
-parser.add_argument('--epoch', type=int, default=100, help='the number of epochs to train for 100')
+parser.add_argument('--epoch', type=int, default=100, help='the number of epochs')
 parser.add_argument('--lr', type=float, default=0.0005, help='learning rate')
 parser.add_argument('--lr_dc', type=float, default=0.1, help='learning rate decay rate')
 parser.add_argument('--lr_dc_step', type=int, default=80,help='the number of steps after which the learning rate decay')
@@ -38,7 +38,7 @@ parser.add_argument('--max_len', type=float, default=19, help='max length of inp
 parser.add_argument('--lambda_denoise', type=float, default=0.1, help='degree of lambda for denoising')
 parser.add_argument('--pos_num', type=int, default=2000, help='the number of position encoding')
 parser.add_argument('--neighbor_num', type=int, default=5, help='the number of neighboring sessions')
-parser.add_argument('--num_heads', type=int, default=8, help='the head of MultiheadAttention')
+parser.add_argument('--num_heads', type=int, default=8, help='the head of multihead attention')
 
 args = parser.parse_args()
 print(args)
