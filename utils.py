@@ -1,8 +1,5 @@
 import torch
 
-'''
-
-'''
 
 def collate_fn(data):
     """This function will be used to pad the sessions to max length
