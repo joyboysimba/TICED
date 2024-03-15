@@ -190,7 +190,7 @@ class TICED(nn.Module):
         beta2 = torch.where(beta2_mask > 0, beta2,
                             torch.tensor([0.], device=self.device))
         sess_std2 = torch.sum(beta2.unsqueeze(2).expand_as(embs_final) * embs_final, 1)
-        sess_std2 = self.dropout30(sess_std2)  #torch.Size([bs, 64])
+        sess_std2 = self.dropout30(sess_std2) 
 
         layer3cur = self.final2std3_cur(embs_final.contiguous().view(-1, self.embedding_dim)).view(embs_final.size())
         layer3_a = self.final2std3_std(sess_std2)
@@ -199,7 +199,7 @@ class TICED(nn.Module):
 
 
         output3, attn_weights3 = self.multihead_attn(embs_final, layer3cur, layer3mask)
-        layer3emb = torch.sum(attn_weights3, 1).permute(1,0).unsqueeze(2).expand_as(embs_final)* embs_final
+        layer3emb = torch.sum(attn_weights3, 1).permute(1,0).unsqueeze(2).expand_as(embs_final) * embs_final
 
         beta3 = self.v_h2std(torch.sigmoid(output3 + layer3emb).view(-1, self.embedding_dim)).view(
             mask.size()) 
@@ -213,17 +213,17 @@ class TICED(nn.Module):
                             torch.tensor([0.], device=self.device)) # torch.Size([bs, 19])
         sess_std3 = torch.sum(beta3.unsqueeze(2).expand_as(embs_final) * embs_final, 1) 
 
-        sess_current = sess_std3 # torch.Size([bs, 64])
+        sess_current = sess_std3 
         
         # cosine similarity
-        sess_norm = F.normalize(sess_current, p=2, dim=1)
-        sim_matrix = F.cosine_similarity(sess_norm.unsqueeze(1), sess_norm.unsqueeze(0), dim=2)
+        sess_norm = F.normalize(sess_current, p = 2, dim = 1)
+        sim_matrix = F.cosine_similarity(sess_norm.unsqueeze(1), sess_norm.unsqueeze(0), dim = 2)
 
         k_v = self.neighbor_num
         if sim_matrix.size()[0] < k_v:
             k_v = sim_matrix.size()[0]
-        cos_topk, topk_indice = torch.topk(sim_matrix, k=k_v, dim=1)
-        cos_topk = nn.Softmax(dim=-1)(cos_topk)
+        cos_topk, topk_indice = torch.topk(sim_matrix, k = k_v, dim = 1)
+        cos_topk = nn.Softmax(dim = -1)(cos_topk)
         sess_topk = sess_current[topk_indice] 
 
         cos_sim = cos_topk.unsqueeze(2).expand(cos_topk.size()[0], cos_topk.size()[1], self.embedding_dim)
@@ -245,8 +245,3 @@ class TICED(nn.Module):
     def init_hidden(self, batch_size):
         return torch.zeros((self.n_layers, batch_size, self.hidden_size), requires_grad=True).to(self.device)
 
-    def transpose_for_scores(self, x, attention_head_size):
-        # INPUT:  x'shape = [bs, seqlen, hid_size] hid_size=128
-        new_x_shape = x.size()[:-1] + (self.num_attention_heads, attention_head_size)  # [bs, seqlen, 8, 16]
-        x = x.view(*new_x_shape)  
-        return x.permute(0, 2, 1, 3)  # [bs, 8, seqlen, 16]
