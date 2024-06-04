@@ -152,16 +152,5 @@ def validate(valid_loader, model):
     mean_mrr = np.mean(mrrs)
     return mean_p, mean_mrr
 
-
-class Set_loss(nn.Module):
-    def __init__(self):
-        super().__init__()
-
-    def forward(self, input, target):
-        cross_entropy = F.nll_loss(input, target)
-
-        return cross_entropy
-
-
 if __name__ == '__main__':
     main()
